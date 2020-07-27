@@ -9,13 +9,13 @@ class _ChooseLocationState extends State<ChooseLocation> {
   int counter = 0;
   double elevation = 0;
 
-  void getData() {
+  void getData() async {
     //simulate network request for a username.
-    Future.delayed(Duration(seconds: 3), () {
+    await Future.delayed(Duration(seconds: 3), () {
       print('田中');
     });
 
-    Future.delayed(Duration(seconds: 2), () {
+    await Future.delayed(Duration(seconds: 2), () {
       print('菜食主義者, ミュージシャン, 卵収集家');
     });
 
