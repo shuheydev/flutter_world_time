@@ -14,7 +14,7 @@ class WorldTime {
     try {
       //make the request
       http.Response response =
-          await http.get('http://worldtimeapi.org/api/timezones/Asia/Tokyo');
+          await http.get('http://worldtimeapi.org/api/timezone/Asia/Tokyo');
       Map data = jsonDecode(response.body);
       // print(data);
 
