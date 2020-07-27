@@ -10,15 +10,24 @@ class _ChooseLocationState extends State<ChooseLocation> {
   double elevation = 0;
 
   void getData() async {
+    List<Future> futures = List<Future>();
     //simulate network request for a username.
-    String userName = await Future.delayed(Duration(seconds: 3), () {
-      return '田中';
-    });
+    futures.add(
+      Future.delayed(Duration(seconds: 3), () {
+        return '田中';
+      }),
+    );
 
-    String bio = await Future.delayed(Duration(seconds: 2), () {
-      return '菜食主義者, ミュージシャン, 卵収集家';
-    });
+    futures.add(
+      Future.delayed(Duration(seconds: 2), () {
+        return '菜食主義者, ミュージシャン, 卵収集家';
+      }),
+    );
 
+    var results = await Future.wait(futures);
+
+    String userName = results[0];
+    String bio = results[1];
     print('$userName - $bio');
     print('statement');
   }
