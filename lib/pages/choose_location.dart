@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_world_time/services/world_time.dart';
 
 class ChooseLocation extends StatefulWidget {
   @override
@@ -7,36 +7,21 @@ class ChooseLocation extends StatefulWidget {
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
-  int counter = 0;
-  double elevation = 0;
-
-  void getData() async {
-    List<Future> futures = List<Future>();
-    //simulate network request for a username.
-    futures.add(
-      Future.delayed(Duration(seconds: 3), () {
-        return '田中';
-      }),
-    );
-
-    futures.add(
-      Future.delayed(Duration(seconds: 2), () {
-        return '菜食主義者, ミュージシャン, 卵収集家';
-      }),
-    );
-
-    var results = await Future.wait(futures);
-
-    String userName = results[0];
-    String bio = results[1];
-    print('$userName - $bio');
-    print('statement');
-  }
+  List<WorldTime> locations = [
+    WorldTime(url: 'Europe/London', location: 'London', flag: 'uk.png'),
+    WorldTime(url: 'Europe/Berlin', location: 'Athens', flag: 'greece.png'),
+    WorldTime(url: 'Africa/Cairo', location: 'Cairo', flag: 'egypt.png'),
+    WorldTime(url: 'Africa/Nairobi', location: 'Nairobi', flag: 'kenya.png'),
+    WorldTime(url: 'America/Chicago', location: 'Chicago', flag: 'usa.png'),
+    WorldTime(url: 'America/New_York', location: 'New York', flag: 'usa.png'),
+    WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'south_korea.png'),
+    WorldTime(url: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia.png'),
+    WorldTime(url: 'Asia/Tokyo', location: 'Tokyo', flag: 'japan.png'),
+  ];
 
   @override
   void initState() {
     super.initState();
-    getData();
   }
 
   @override
@@ -48,6 +33,27 @@ class _ChooseLocationState extends State<ChooseLocation> {
         title: Text('Choose a Location'),
         centerTitle: true,
         elevation: 0,
+      ),
+      body: ListView.builder(
+        itemCount: locations.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
+            child: Card(
+              child: ListTile(
+                onTap: () {
+                  print(locations[index].location);
+                },
+                title: Text(locations[index].location),
+                leading: CircleAvatar(
+                  backgroundImage: AssetImage(
+                    'assets/${locations[index].flag}',
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
