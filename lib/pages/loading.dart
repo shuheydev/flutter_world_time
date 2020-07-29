@@ -8,13 +8,20 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
+  Map data = {};
   void setupWorldTime() async {
     await Future.delayed(Duration(seconds: 5));
 
-    WorldTime instance =
-        WorldTime(location: 'Tokyo', flag: 'japan.png', url: 'asia/tokyo');
+    data = ModalRoute.of(context).settings.arguments;
+
+    WorldTime instance;
+    if (data == null)
+      instance =
+          WorldTime(location: 'Tokyo', flag: 'japan.png', url: 'asia/tokyo');
+    else
+      instance = data['selectedWorldTime'];
+
     await instance.getTime();
-    print(instance.time);
 
     Navigator.pushReplacementNamed(
       context,
